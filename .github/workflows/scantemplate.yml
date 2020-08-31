@@ -28,7 +28,7 @@ jobs:
         env: 
           SUPER_SECRET: ${{ secrets.CC_KEY }}
       - name: What is inside
-        run: echo $CC_KEY
+        run: echo $secrets.CC_KEY
       - name: Giving permission to the push-to-cc file
         run: chmod +x push-to-cc.sh 
       - name: Execute push-to-cc file
