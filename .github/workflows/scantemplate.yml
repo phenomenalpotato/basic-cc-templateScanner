@@ -27,8 +27,6 @@ jobs:
           api_key: ${{ secrets.CC_KEY }}
       - name: Setting the variable
         run: export api_key=$CC_KEY
-      - name: Giving permission to the push-to-cc file
-        run: chmod +x push-to-cc.sh 
       - name: Execute push-to-cc file
         run: ./push-to-cc.sh
 
