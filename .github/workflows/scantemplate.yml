@@ -26,7 +26,7 @@ jobs:
       - name: Where am I
         run: ls -lha && pwd
         env: 
-          SUPER_SECRET: ${{ secrets.CC_KEY }}
+          api_key=: ${{ secrets.CC_KEY }}
       - name: Setting the variable
         run: export api_key=$secrets.CC_KEY
       - name: What is inside
