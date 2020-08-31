@@ -17,7 +17,7 @@ echo ${payload} | jq '.' -M
 
 echo Response:
 curl -s -X POST \
-     -H "Authorization: ApiKey ${api_key}" \
+     -H "Authorization: ApiKey $api_key" \
      -H "Content-Type: application/vnd.api+json" \
      https://${region}-api.cloudconformity.com/v1/template-scanner/scan \
      --data-binary "${payload}" | jq '.' -M
