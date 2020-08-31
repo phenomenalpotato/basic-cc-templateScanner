@@ -26,8 +26,8 @@ jobs:
         env: 
           CC_KEY: ${{ secrets.CC_KEY }}
       - name: Setting the variable
-        run: export api_key=$CC_KEY
+        run: export api_key="Porra"
       - name: What is inside
-        run: echo $CC_KEY
+        run: echo $api_key
 
 
