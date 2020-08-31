@@ -24,7 +24,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Where am I
-        run: ls -lha
+        run: ls -lha && pwd
         env: 
           SUPER_SECRET: ${{ secrets.CC_KEY }}
       - name: What is inside
