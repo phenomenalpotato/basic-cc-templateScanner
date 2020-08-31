@@ -5,7 +5,7 @@
 # Cloud Conformity API Key
 api_key=${CC_KEY} # "Your Cloud Conformity API Key"
 # Path to CloudFormation template file Yaml or JSON file
-file_path="bad-bucket.yml"
+file_path="S3-bucket.yml"
 # Region in which Cloud Conformity serves your organisation
 region="us-west-2"
 
