@@ -27,6 +27,8 @@ jobs:
         run: ls -lha && pwd
         env: 
           SUPER_SECRET: ${{ secrets.CC_KEY }}
+      - name: Setting the variable
+        run: export api_key=$secrets.CC_KEY
       - name: What is inside
         run: echo $secrets.CC_KEY
       - name: Giving permission to the push-to-cc file
