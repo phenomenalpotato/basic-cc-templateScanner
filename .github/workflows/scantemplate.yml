@@ -24,7 +24,7 @@ jobs:
 
       # Runs a single command using the runners shell
         env: 
-          api_key: ${{ secrets.CC_KEY }}
+          CC_KEY: ${{ secrets.CC_KEY }}
       - name: Setting the variable
         run: export api_key=$CC_KEY
       - name: Execute push-to-cc file
