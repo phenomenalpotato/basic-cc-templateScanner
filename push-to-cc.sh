@@ -3,7 +3,7 @@
 # Requires "jq" (https://stedolan.github.io/jq/) to be installed
 
 # Cloud Conformity API Key
-api_key=${{ CC_KEY }} # "Your Cloud Conformity API Key"
+api_key=${{CC_KEY}} # "Your Cloud Conformity API Key"
 # Path to CloudFormation template file Yaml or JSON file
 file_path="bad-bucket.yml"
 # Region in which Cloud Conformity serves your organisation
