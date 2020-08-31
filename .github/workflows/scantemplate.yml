@@ -25,7 +25,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Where am I
         run: ls -lha
-      - shell: bash
         env: 
           SUPER_SECRET: ${{CC_KEY}}
       - name: Giving permission to the push-to-cc file
