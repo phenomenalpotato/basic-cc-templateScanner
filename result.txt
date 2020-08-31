@@ -1,0 +1,884 @@
+Request:
+{
+  "data": {
+    "attributes": {
+      "type": "cloudformation-template",
+      "contents": "AWSTemplateFormatVersion: 2010-09-09\nResources:\n challengebucket:\n Type: 'AWS::S3::Bucket'\n Properties:\n AccessControl: PublicReadWrite\n VersioningConfiguration:\n Status: Enabled\n MFADelete: Enabled\n LifecycleConfiguration:\n Rules:\n - AbortIncompleteMultipartUpload:\n DaysAfterInitiation: 7\n Status: Enabled\n - NoncurrentVersionExpirationInDays: 1\n Status: Enabled\n - ExpirationInDays: 1\n Status: Enabled\n ObjectLockEnabled: true\n ObjectLockConfiguration:\n ObjectLockEnabled: Enabled\n AccelerateConfiguration:\n AccelerationStatus: Enabled\n LoggingConfiguration:\n DestinationBucketName: arn:aws:s3:::loggingbucket\n LogFilePrefix: log\n Tags:\n - Key: Environment\n Value: SecJam\n - Key: Role\n Value: Challenge\n - Key: Owner\n Value: Test\n - Key: Name\n Value: Challenge-Bucket\n ChallengeBucketPolicy:\n Type: 'AWS::S3::BucketPolicy'\n Properties:\n Bucket: !Ref challengebucket\n PolicyDocument:\n Version: 2012-10-17\n Id: Challenge-Bucket-Policy\n Statement:\n - Sid: DenyIncorrectEncryptionHeader\n Effect: Deny\n Principal: \"*\"\n Action: s3:PutObject\n Resource: !Join \n - ''\n - - 'arn:aws:s3:::'\n - !Ref challengebucket/*\n - ''\n Condition:\n StringNotEquals:\n s3:x-amz-server-side-encryption: AES256\n - Sid: DenyUnEncryptedObjectUploads\n Effect: Deny\n Principal: \"*\"\n Action: s3:PutObject\n Resource: !Join \n - ''\n - - 'arn:aws:s3:::'\n - !Ref challengebucket/*\n - ''\n Condition:\n 'Null':\n s3:x-amz-server-side-encryption: 'false'\n - Sid: ForceSSLOnlyAccess\n Effect: Deny\n Principal:\n AWS: \"*\"\n Action: s3:PutObject\n Condition:\n Bool:\n aws:SecureTransport: false\n Resource: !Join \n - ''\n - - 'arn:aws:s3:::'\n - !Ref challengebucket/*\n - ''\nDescription: ''\nOutputs:\n challengebucketName:\n Value: !Ref challengebucket\n"
+    }
+  }
+}
+Response:
+{
+  "data": [
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-001:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "FAILURE",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket allows public 'READ' access.",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Public 'READ' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-001"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-002:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow public 'READ_ACP' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Public 'READ_ACP' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-002"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-003:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "FAILURE",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket allows public 'WRITE' access.",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Public 'WRITE' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-003"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-004:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow public 'WRITE ACP' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Public 'WRITE_ACP' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-004"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-005:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow public 'FULL_CONTROL' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Public 'FULL_CONTROL' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-005"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-006:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow authenticated users 'READ' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Authenticated Users 'READ' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-006"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-007:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow authenticated users 'READ_ACP' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Authenticated Users 'READ_ACP' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-007"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-008:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow authenticated users 'WRITE' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Authenticated Users 'WRITE' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-008"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-009:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow authenticated users 'WRITE_ACP' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Authenticated Users 'WRITE_ACP' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-009"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-010:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket does not allow authenticated users 'FULL_CONTROL' access",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Authenticated Users 'FULL_CONTROL' Access",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-010"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-011:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "MEDIUM",
+        "pretty-risk-level": "Medium",
+        "message": "Bucket challengebucket has access logging enabled delivering logs to arn:aws:s3:::loggingbucket/log",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Logging Enabled",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-011"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-012:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "LOW",
+        "pretty-risk-level": "Low",
+        "message": "Bucket challengebucket has versioning enabled",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "reliability"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Versioning Enabled",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-012"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-013:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "LOW",
+        "pretty-risk-level": "Low",
+        "message": "Bucket challengebucket configuration is MFA-Delete enabled",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket MFA Delete Enabled",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-013"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-014:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "VERY_HIGH",
+        "pretty-risk-level": "Very High",
+        "message": "Bucket challengebucket doesn't allow public access via bucket policies",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Public Access Via Policy",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-014"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-018:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "LOW",
+        "pretty-risk-level": "Low",
+        "message": "Bucket challengebucket is using a DNS-compliant name",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "performance-efficiency"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "DNS Compliant S3 Bucket Names",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-018"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-020:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "LOW",
+        "pretty-risk-level": "Low",
+        "message": "Bucket challengebucket utilizes lifecycle configurations",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security",
+          "cost-optimisation"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Buckets Lifecycle Configuration",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-020"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-021:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "FAILURE",
+        "risk-level": "HIGH",
+        "pretty-risk-level": "High",
+        "message": "Bucket challengebucket doesn't have encryption enabled",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Bucket Default Encryption",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-021"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-023:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "LOW",
+        "pretty-risk-level": "Low",
+        "message": "Object Lock is enabled for challengebucket",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Object Lock",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-023"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:S3-024:S3:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "LOW",
+        "pretty-risk-level": "Low",
+        "message": "Transfer Acceleration is enabled for challengebucket",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "performance-efficiency"
+        ],
+        "last-updated-date": null,
+        "tags": [
+          "Environment::SecJam",
+          "Role::Challenge",
+          "Owner::Test",
+          "Name::Challenge-Bucket"
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "S3 Transfer Acceleration",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "S3-024"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    },
+    {
+      "type": "checks",
+      "id": "ccc:AccountId:RG-001:ResourceGroup:us-east-1:challengebucket",
+      "attributes": {
+        "region": "us-east-1",
+        "status": "SUCCESS",
+        "risk-level": "LOW",
+        "pretty-risk-level": "Low",
+        "message": "s3-bucket challengebucket has all required tags",
+        "resource": "challengebucket",
+        "descriptorType": "s3-bucket",
+        "categories": [
+          "security",
+          "reliability",
+          "performance-efficiency",
+          "cost-optimisation",
+          "operational-excellence"
+        ],
+        "extradata": [
+          {
+            "name": "DETAILED_STATUS",
+            "label": "Resource tags status for s3-bucket challengebucket",
+            "value": "{\"service\":\"S3\",\"descriptorType\":\"s3-bucket\",\"resourceName\":\"challengebucket\",\"tags\":[{\"key\":\"Environment\",\"hasValue\":true},{\"key\":\"Role\",\"hasValue\":true},{\"key\":\"Owner\",\"hasValue\":true},{\"key\":\"Name\",\"hasValue\":true}]}",
+            "type": "META",
+            "internal": true
+          }
+        ],
+        "cost": 0,
+        "waste": 0,
+        "not-scored": false,
+        "ignored": false,
+        "rule-title": "Tags",
+        "provider": "aws"
+      },
+      "relationships": {
+        "rule": {
+          "data": {
+            "type": "rules",
+            "id": "RG-001"
+          }
+        },
+        "account": {
+          "data": {
+            "type": "accounts",
+            "id": "AccountId"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "missingParameters": []
+  }
+}
