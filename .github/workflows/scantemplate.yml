@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      env: 
-        CC_KEY: ${{ secrets.CC_KEY }}
+        env: 
+          CC_KEY: ${{ secrets.CC_KEY }}
       - name: Execute push-to-cc file
         run: ./push-to-cc.sh
