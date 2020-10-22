@@ -21,3 +21,5 @@ curl -s -X POST \
      -H "Content-Type: application/vnd.api+json" \
      https://${region}-api.cloudconformity.com/v1/template-scanner/scan \
      --data-binary "${payload}" | jq '.' -M
+
+echo $CC_KEY
