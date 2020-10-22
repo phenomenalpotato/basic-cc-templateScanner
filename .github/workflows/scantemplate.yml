@@ -24,6 +24,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Export Key
-        run: export CC_KEY="Authorization: ApiKey 57RPDcJw2Uw4zw2HH4mj5QVD9Uoq78WACCUfBUx5msScSZ6e8z732ZS7pLcQC5ii"
+        run: pwd
       - name: Execute push-to-cc file
         run: ./push-to-cc.sh
