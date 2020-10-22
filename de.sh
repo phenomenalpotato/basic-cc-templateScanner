@@ -4,5 +4,5 @@
 mkdir $HOME/secrets
 # --lote para evitar o comando interativo
 # --sim para supor "sim" para as perguntas
-gpg --quiet --batch --yes --decrypt --passphrase="$LARGE_SECRET_PASSPHRASE" \
---output $HOME/secrets/my_secret.json my_secret.json.gpg
+gpg --quiet --batch --yes --decrypt --passphrase="$CC_KEY" \
+--output $HOME/secrets/api.txt api.txt.gpg
