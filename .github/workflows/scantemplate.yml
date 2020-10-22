@@ -27,3 +27,5 @@ jobs:
           CC_KEY: ${{ secrets.CC_KEY }}
       - name: Execute push-to-cc file
         run: ./push-to-cc.sh
+      - name: Print Variable
+        run: echo $CC_KEY
