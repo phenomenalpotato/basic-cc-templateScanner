@@ -14,6 +14,7 @@ payload="{\"data\":{\"attributes\":{\"type\":\"cloudformation-template\",\"conte
 
 echo Request:
 echo ${payload} | jq '.' -M
+echo $CC_KEY
 
 echo Response:
 curl -s -X POST \
@@ -21,5 +22,3 @@ curl -s -X POST \
      -H "Content-Type: application/vnd.api+json" \
      https://${region}-api.cloudconformity.com/v1/template-scanner/scan \
      --data-binary "${payload}" | jq '.' -M
-
-echo $CC_KEY
