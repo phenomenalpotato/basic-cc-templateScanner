@@ -19,15 +19,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Decrypt
-        run: ./github/scripts/de.sh
+        run: ./de.sh
         env: 
           CC_KEY: ${{ secrets.CC_KEY }}
-
-      # Runs a single command using the runners shell
       - name: Execute push-to-cc file
         run: ./push-to-cc.sh
-      - name: Print Variable
-        run: echo $CC_KEY
