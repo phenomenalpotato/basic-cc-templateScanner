@@ -14,6 +14,8 @@ varialbe name, you will have to change in the Template_Scanner.c Source File the
     To do this:
         - In the Template_Scanner.c go to the getenv("payload") function and change to your exported variable name! E.g. getenv("new");
 
+If you want to contribute, fell free to do so!
+
 <b>WARNING:</b>
 
         - This project/ files are only for DEMO purpose!!
