@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-int main(void) {
+int main(int argc, char *argv[], char *envp[]) {
 
     CURL *curl; // You will do transfer using this. It's just a handle to transfers to operate 
 
@@ -48,6 +48,15 @@ int main(void) {
 
     if(curl) {
 
+        char *teste = getenv("payload");
+
+            if(teste == NULL) {
+
+            perror("Variable not found");
+            exit(1);
+
+        }
+
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
 
         curl_easy_setopt(curl,CURLOPT_URL, "https://us-west-2-api.cloudconformity.com/v1/template-scanner/scan");
@@ -66,7 +75,7 @@ int main(void) {
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
-        const char *data = " { \"data\": { \"attributes\": { \"type\": \"cloudformation-template\", \"contents\": \"---\\nAWSTemplateFormatVersion: '2010-09-09'\\nResources:\\n  S3Bucket:\\n    Type: AWS::S3::Bucket\\n    Properties:\\n      AccessControl: PublicRead\" } }} ";
+        const char *data = teste;
 
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
 
@@ -79,8 +88,6 @@ int main(void) {
     curl_global_cleanup(); // And when we are done with our operations, we do this
 
     printf("\n");
-
-    //printf("Token = %ld\n", strlen(token));
 
     fclose(fh);
 
