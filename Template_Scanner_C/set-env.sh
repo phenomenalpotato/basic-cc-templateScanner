@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script was based on the script in the official Cloud Conformity repo: https://github.com/cloudconformity/documentation-api/blob/master/examples/bash/template-scanner/scan.sh 
+
 # Scans a CloudFormation template file
 # Requires "jq" (https://stedolan.github.io/jq/) to be installed
 
