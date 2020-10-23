@@ -48,9 +48,11 @@ int main(void) {
 
     if(curl) {
 
-        char *teste = getenv("payload");
+        char *pay = getenv("payload");
 
-            if(teste == NULL) {
+        char *url = getenv("url");
+
+            if(pay == NULL || url == NULL) {
 
             perror("Variable not found");
             exit(1);
@@ -59,7 +61,7 @@ int main(void) {
 
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
 
-        curl_easy_setopt(curl,CURLOPT_URL, "https://us-west-2-api.cloudconformity.com/v1/template-scanner/scan");
+        curl_easy_setopt(curl,CURLOPT_URL, url);
 
         curl_easy_setopt(curl, CURLOPT_VERBOSE, 0L);
 
@@ -75,7 +77,7 @@ int main(void) {
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
-        const char *data = teste;
+        const char *data = pay;
 
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
 
