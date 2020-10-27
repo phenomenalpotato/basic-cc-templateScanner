@@ -22,7 +22,7 @@ export url="https://${region}-api.cloudconformity.com/v1/template-scanner/scan"
 # If you want to compile using gcc delete the # - Watch out for the links, you have to include the -lcurl
 # gcc Template_Scanner.c -lcurl -o Template_Scanner
 
-./Template_Scanner  | jq
+./Template_Scanner  | jq .
 
 
 
