@@ -22,10 +22,26 @@ varialbe name, you will have to change in the Template_Scanner.c Source File the
 If you don't want to export or install anything in your own environment, you can use the docker image:
 
     1 - Build the image:
+
         docker build --tag templatescanner:latest .
 
     2 - Run the container:
+
         docker run templatescanner:latest /bin/bash -c "echo Authorization: ApiKey your_api_key_here > api.txt;/var/set-env.sh"
+
+If you want, you can also use the Makefile to:
+
+    Build the docker image:
+
+        - make build-dockerfile
+
+    Run the container: (Just don't forget to change you API Key in the MakeFile!)
+
+        - make docker-run
+
+    And Delete the Template_Scanner Executable:
+
+        - make delete
 
 <b>WARNING:</b>
 
