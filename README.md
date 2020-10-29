@@ -14,7 +14,7 @@ How to Use:
     3 - Smile ;) if it works || Don't cry ;( if it gives an error 
 
 The Template_Scanner executable will search for a variable called payload so be sure to have this variable exported to your env. Or if you want to change this 
-varialbe name, you will have to change in the Template_Scanner.c Source File the name of the variable that you exported in your env. 
+variable name, you will have to change in the Template_Scanner.c Source File the name of the variable that you exported in your env. 
 
     To do this:
         - In the Template_Scanner.c go to the getenv("payload") function and change to your exported variable name! E.g. getenv("new");
