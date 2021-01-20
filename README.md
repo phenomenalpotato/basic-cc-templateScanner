@@ -1,5 +1,5 @@
 # basic-cc-workflow
-A basic Cloud Conformity Template Scanner Workflow
+A basic Cloud Conformity Template Scanner Template Scanner
 
 How to Use:
 
@@ -11,7 +11,7 @@ How to Use:
     2 - Execute the set-env.sh script
         2.1 - See if the variables/ values in the file make sense to your environment
 
-    3 - Smile ;) if it works || Don't cry ;( if it gives an error 
+    3 - Smile ;) if it works || Don't cry ;( if it gives an error... Just kidding, you can always open an issue, I'll be happy to try to solve it!
 
 The Template_Scanner executable will search for a variable called payload so be sure to have this variable exported to your env. Or if you want to change this 
 variable name, you will have to change in the Template_Scanner.c Source File the name of the variable that you exported in your env. 
@@ -35,7 +35,7 @@ If you want, you can also use the Makefile to:
 
         - make build-dockerfile
 
-    Run the container: (Just don't forget to change you API Key in the MakeFile!)
+    Run the container: (Just don't forget to change your API Key in the MakeFile!)
 
         - make docker-run
 
