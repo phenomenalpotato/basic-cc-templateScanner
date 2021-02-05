@@ -1,5 +1,5 @@
 # basic-cc-workflow
-A basic Cloud Conformity Template Scanner Template Scanner
+A basic Cloud Conformity Template Scanner
 
 How to Use:
 
